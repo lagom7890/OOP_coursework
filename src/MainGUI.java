@@ -198,6 +198,16 @@ public class MainGUI implements Observer {
                 return;
             }
 
+            String note = JOptionPane.showInputDialog("Add a note (optional):");
+            if (note != null && !note.isEmpty()) {
+                communicationTracking.addNote(content, note);
+            }
+
+            String tag = JOptionPane.showInputDialog("Add a tag (optional):");
+            if (tag != null && !tag.isEmpty()) {
+                communicationTracking.addTag(content, tag);
+            }
+
             communicationTracking.logCommunicationWithLogger(logger, customer, content);
             displayArea.setText("Communication logged successfully.");
         } catch (Exception ex) {

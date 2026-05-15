@@ -33,10 +33,6 @@ public class Reporting {
         return sb.toString();
     }
 
-    public void generateCommunicationReport() {
-        System.out.print(generateCommunicationReportString());
-    }
-
     public String generateTaskCompletionReportString() {
         StringBuilder sb = new StringBuilder();
         sb.append("--- Task Completion Rate Report ---\n");
@@ -53,10 +49,6 @@ public class Reporting {
         }
         sb.append("-----------------------------------\n");
         return sb.toString();
-    }
-
-    public void generateTaskCompletionReport() {
-        System.out.print(generateTaskCompletionReportString());
     }
 
     public String getSummaryReportString() {

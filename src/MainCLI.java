@@ -224,8 +224,6 @@ public class MainCLI implements Observer {
                 return;
         }
 
-        communicationTracking.logCommunicationWithLogger(logger, customer, content);
-
         System.out.print("Add a note (optional, press Enter to skip): ");
         String note = scanner.nextLine();
         if (!note.isEmpty()) {
@@ -237,6 +235,8 @@ public class MainCLI implements Observer {
         if (!tag.isEmpty()) {
             communicationTracking.addTag(content, tag);
         }
+
+        communicationTracking.logCommunicationWithLogger(logger, customer, content);
     }
 
     public static void main(String[] args) {
