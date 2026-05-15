@@ -206,10 +206,8 @@ public class MainGUI implements Observer {
     }
 
     private void generateReports() {
-        // Redir sys out is complex in simple GUI, so we'll just show it in console for now for this method, or redirect if we want.
-        // Let's at least call it
-        reporting.displaySummaryReport();
-        displayArea.setText("Report generated in console.");
+        String reportContent = reporting.getSummaryReportString();
+        displayArea.setText(reportContent);
     }
 
     private void toggleNotifications() {

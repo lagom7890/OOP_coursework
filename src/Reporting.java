@@ -13,8 +13,9 @@ public class Reporting {
         this.communicationTracking = communicationTracking;
     }
 
-    public void generateCommunicationReport() {
-        System.out.println("--- Communication Frequency Report ---");
+    public String generateCommunicationReportString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("--- Communication Frequency Report ---\n");
         List<CommunicationTracking.CommunicationLog> history = communicationTracking.getCommunicationHistory();
         
         Map<Integer, Long> counts = history.stream()
@@ -22,36 +23,52 @@ public class Reporting {
 
         for (CustomerINFO customer : customerManagement.getAllCustomers()) {
             long count = counts.getOrDefault(customer.getId(), 0L);
-            System.out.printf("Customer: %s (ID: %d) - Communications: %d%n", customer.getName(), customer.getId(), count);
+            sb.append(String.format("Customer: %s (ID: %d) - Communications: %d\n", customer.getName(), customer.getId(), count));
             
-            // Specifically list communication details to use getType and getTimestamp
             history.stream()
                 .filter(log -> log.getCustomerId() == customer.getId())
-                .forEach(log -> System.out.printf("   > [%s] %s%n", log.getTimestamp().toString(), log.getType()));
+                .forEach(log -> sb.append(String.format("   > [%s] %s\n", log.getTimestamp().toString(), log.getType())));
         }
-        System.out.println("--------------------------------------");
+        sb.append("--------------------------------------\n");
+        return sb.toString();
     }
 
-    public void generateTaskCompletionReport() {
-        System.out.println("--- Task Completion Rate Report ---");
+    public void generateCommunicationReport() {
+        System.out.print(generateCommunicationReportString());
+    }
+
+    public String generateTaskCompletionReportString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("--- Task Completion Rate Report ---\n");
         for (CustomerINFO customer : customerManagement.getAllCustomers()) {
             List<TaskManagement.Task> tasks = taskManagement.getTasksByCustomer(customer.getId());
             if (tasks.isEmpty()) {
-                System.out.printf("Customer: %s (ID: %d) - No tasks assigned.%n", customer.getName(), customer.getId());
+                sb.append(String.format("Customer: %s (ID: %d) - No tasks assigned.\n", customer.getName(), customer.getId()));
                 continue;
             }
             long completed = tasks.stream().filter(TaskManagement.Task::isCompleted).count();
             double rate = (double) completed / tasks.size() * 100;
-            System.out.printf("Customer: %s (ID: %d) - Tasks: %d Total, %d Completed, Rate: %.2f%%%n", 
-                    customer.getName(), customer.getId(), tasks.size(), completed, rate);
+            sb.append(String.format("Customer: %s (ID: %d) - Tasks: %d Total, %d Completed, Rate: %.2f%%\n", 
+                    customer.getName(), customer.getId(), tasks.size(), completed, rate));
         }
-        System.out.println("-----------------------------------");
+        sb.append("-----------------------------------\n");
+        return sb.toString();
+    }
+
+    public void generateTaskCompletionReport() {
+        System.out.print(generateTaskCompletionReportString());
+    }
+
+    public String getSummaryReportString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("======= CUSTOMER ACTIVITY SUMMARY =======\n");
+        sb.append(generateCommunicationReportString());
+        sb.append(generateTaskCompletionReportString());
+        sb.append("=========================================\n");
+        return sb.toString();
     }
 
     public void displaySummaryReport() {
-        System.out.println("======= CUSTOMER ACTIVITY SUMMARY =======");
-        generateCommunicationReport();
-        generateTaskCompletionReport();
-        System.out.println("=========================================");
+        System.out.print(getSummaryReportString());
     }
 }
