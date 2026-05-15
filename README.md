@@ -101,7 +101,7 @@ classDiagram
     
     class Logger {
         <<Interface>>
-        +log(String message)
+        +process(CustomerINFO contactINFO, Communications content)
     }
     
     class Communications {
