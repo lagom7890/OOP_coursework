@@ -30,7 +30,7 @@ graph TD
     UI[User Interface Layer] -->|Uses| Controllers[Business Logic / Controllers]
     Controllers -->|Uses| Factory[Entity Factory]
     Controllers -->|Updates/Reads| Models[Data Models]
-    Models -.->|Notifies| UI
+    Controllers -.->|Notifies| UI
 
     subgraph User Interface Layer
         CLI(MainCLI)
@@ -43,16 +43,16 @@ graph TD
         TM(TaskManagement - Subject)
         CT(CommunicationTracking)
         Rep(Reporting)
+        Log(Logger Interface)
+        EL(EmailLogger)
+        PL(PhoneLogger)
+        ML(MeetingLogger)
     end
 
     subgraph Data Models
         CI(CustomerINFO)
-        Task(Task)
+        Task(TaskManagement.Task)
         Comm(Communications)
-        EL(EmailLogger)
-        PL(PhoneLogger)
-        ML(MeetingLogger)
-        Log(Logger)
     end
     
     subgraph Creational
@@ -105,9 +105,18 @@ classDiagram
     }
     
     class Communications {
-        -int customerId
-        -List~String~ logs
-        +addLog(String)
+        -String phoneContent
+        -String emailContent
+        -String meetingContent
+        -String notes
+        -String tags
+        +getPhoneContent() String
+        +getEmailContent() String
+        +getMeetingContent() String
+        +getNotes() String
+        +setNotes(String)
+        +getTags() String
+        +setTags(String)
     }
     
     class EmailLogger
