@@ -3,9 +3,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CommunicationTracking {
-    private final List<CommunicationLog> communicationHistory = new ArrayList<>();
+    private final List<CommunicationLog> communicationHistory;
 
     public CommunicationTracking() {
+        this.communicationHistory = new ArrayList<>();
     }
 
     public void logCommunicationWithLogger(Logger logger, CustomerINFO contactINFO, Communications content){

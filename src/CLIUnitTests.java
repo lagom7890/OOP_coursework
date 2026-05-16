@@ -1,7 +1,7 @@
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class UnitTests {
+public class CLIUnitTests {
 
     public static void main(String[] args) {
         testCustomerFiltering();

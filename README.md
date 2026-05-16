@@ -165,6 +165,6 @@ Navigate to the root directory for standard operations.
 3. **Running Tests**:
    For the most reliable testing without needing external JVM arguments, custom assertions are used in the main test methods. Run tests directly via:
    ```bash
-   java UnitTests
+   java CLIUnitTests
    java GUIUnitTests
    ```

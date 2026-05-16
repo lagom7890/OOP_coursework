@@ -1,10 +1,12 @@
 public class SessionManager {
     private static SessionManager instance;
     private String currentUser;
-    private boolean notificationsEnabled = true;
+    private boolean notificationsEnabled;
 
     private SessionManager() {
         // Private constructor to prevent instantiation
+        this.currentUser = null;
+        this.notificationsEnabled = true;
     }
 
     public static synchronized SessionManager getInstance() {
