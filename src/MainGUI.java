@@ -28,7 +28,16 @@ public class MainGUI implements Observer {
 
     public void start() {
         frame = new JFrame("CRM System GUI");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                JOptionPane.showMessageDialog(frame, 
+                    "Great work today, " + sessionManager.getCurrentUser() + ". Have a wonderful rest of your day!",
+                    "Goodbye!", JOptionPane.INFORMATION_MESSAGE);
+                System.exit(0);
+            }
+        });
         frame.setSize(800, 600);
 
         String username = JOptionPane.showInputDialog(frame, "Please enter your name to login:");
@@ -37,6 +46,9 @@ public class MainGUI implements Observer {
         } else {
             sessionManager.setCurrentUser("Guest");
         }
+
+        int hour = java.time.LocalTime.now().getHour();
+        String greeting = (hour < 12) ? "Good morning" : (hour < 18) ? "Good afternoon" : "Good evening";
 
         JTabbedPane tabbedPane = new JTabbedPane();
 
@@ -47,7 +59,7 @@ public class MainGUI implements Observer {
         
         // Home Tab
         JPanel homePanel = new JPanel(new BorderLayout());
-        JLabel welcomeLabel = new JLabel("Welcome " + sessionManager.getCurrentUser() + " to CRM System", SwingConstants.CENTER);
+        JLabel welcomeLabel = new JLabel(greeting + " " + sessionManager.getCurrentUser() + ", let's get things done!", SwingConstants.CENTER);
         welcomeLabel.setFont(new Font("Arial", Font.BOLD, 24));
         homePanel.add(welcomeLabel, BorderLayout.CENTER);
         tabbedPane.addTab("Home", homePanel);

@@ -19,8 +19,9 @@ The implementation followed a prioritized strategy:
    - *Factory*: Encapsulate logic for creating new tasks, communications, and customer entries.
    - *Observer*: Implement a publish-subscribe model in managers to notify UI controllers of updates asynchronously.
 3. **Core Features**: Implement CRUD for customers, chronological communication tracking, and a 24-hour task deadline reminder system.
-4. **User Interfacing**: Build distinct Command-Line and Graphical User Interfaces using the MVC layered approach.
-5. **Quality Assurance**: Implement unit testing (both logic and GUI-focused).
+4. **User Experience (UX)**: Integrated "human-centric" interactions, including time-based personalized greetings, encouraging positive feedback on task completion, and warm exit dialogs, to make the system feel more welcoming and engaging.
+5. **User Interfacing**: Build distinct Command-Line and Graphical User Interfaces using the MVC layered approach.
+6. **Quality Assurance**: Implement unit testing (both logic and GUI-focused).
 
 ### Design
 

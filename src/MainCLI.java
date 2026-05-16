@@ -27,11 +27,14 @@ public class MainCLI implements Observer {
     }
 
     public void start() {
-        System.out.println("Welcome to CRM System");
+        System.out.println("=== Welcome to CRM System ===");
         System.out.print("Please enter your name to login: ");
         String username = scanner.nextLine();
         sessionManager.setCurrentUser(username);
-        System.out.println("Logged in as: " + sessionManager.getCurrentUser());
+        
+        int hour = java.time.LocalTime.now().getHour();
+        String greeting = (hour < 12) ? "Good morning" : (hour < 18) ? "Good afternoon" : "Good evening";
+        System.out.println("\n" + greeting + ", " + sessionManager.getCurrentUser() + "! Let's get things done today.");
 
         boolean running = true;
         while (running) {
@@ -48,7 +51,10 @@ public class MainCLI implements Observer {
                 case "8": logCommunication(); break;
                 case "9": generateReports(); break;
                 case "10": toggleNotifications(); break;
-                case "11": running = false; break;
+                case "0": 
+                    running = false; 
+                    System.out.println("Great work today, " + sessionManager.getCurrentUser() + ". Have a wonderful rest of your day!");
+                    break;
                 default: System.out.println("Invalid choice.");
             }
         }

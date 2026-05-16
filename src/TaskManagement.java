@@ -62,8 +62,8 @@ public class TaskManagement extends Subject {
         for (Task task : tasks) {
             if (task.getTaskId() == taskId) {
                 task.setCompleted(true);
-                System.out.println("Task marked as completed: " + task);
-                notifyObservers("Task completed: " + task.getDescription());
+                System.out.println("🎉 Awesome job! Task marked as completed: " + task.getDescription());
+                notifyObservers("Task completed (Keep it up!): " + task.getDescription());
                 return;
             }
         }
