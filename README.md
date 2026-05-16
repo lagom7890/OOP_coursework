@@ -31,7 +31,10 @@ graph TD
     UI -->|Uses| Factory[Entity Factory]
     Controllers -->|Uses| Models[Data Models]
     Controllers -->|Uses| Loggers[Logger Implementations]
-    Controllers -.->|Notifies (Observer)| UI
+    CM -.->|Notifies| GUI
+    CM -.->|Notifies| CLI
+    TM -.->|Notifies| GUI
+    TM -.->|Notifies| CLI
     Reporting[Reporting] -->|Reads| Models
     CT[CommunicationTracking] -->|Uses| Comm[Communications]
 
