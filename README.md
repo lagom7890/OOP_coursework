@@ -28,9 +28,12 @@ The implementation followed a prioritized strategy:
 ```mermaid
 graph TD
     UI[User Interface Layer] -->|Uses| Controllers[Business Logic / Controllers]
-    Controllers -->|Uses| Factory[Entity Factory]
-    Controllers -->|Updates/Reads| Models[Data Models]
-    Controllers -.->|Notifies| UI
+    UI -->|Uses| Factory[Entity Factory]
+    Controllers -->|Uses| Models[Data Models]
+    Controllers -->|Uses| Loggers[Logger Implementations]
+    Controllers -.->|Notifies (Observer)| UI
+    Reporting[Reporting] -->|Reads| Models
+    CT[CommunicationTracking] -->|Uses| Comm[Communications]
 
     subgraph User Interface Layer
         CLI(MainCLI)
@@ -41,8 +44,12 @@ graph TD
         Session(SessionManager - Singleton)
         CM(CustomerManagement - Subject)
         TM(TaskManagement - Subject)
-        CT(CommunicationTracking)
-        Rep(Reporting)
+        CT
+        Reporting
+    end
+
+    subgraph Creational
+        Factory
         Log(Logger Interface)
         EL(EmailLogger)
         PL(PhoneLogger)
@@ -52,11 +59,7 @@ graph TD
     subgraph Data Models
         CI(CustomerINFO)
         Task(TaskManagement.Task)
-        Comm(Communications)
-    end
-    
-    subgraph Creational
-        Factory(EntityFactory)
+        Comm
     end
 ```
 
