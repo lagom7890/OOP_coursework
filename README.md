@@ -129,6 +129,31 @@ classDiagram
     class PhoneLogger
     class MeetingLogger
     
+    class Task {
+        -int taskId
+        -int customerId
+        -String description
+        -String type
+        -boolean isCompleted
+    }
+    
+    class CommunicationLog {
+        -int customerId
+        -String type
+        -LocalDateTime timestamp
+    }
+
+    class CommunicationTracking {
+        -List~CommunicationLog~ communicationHistory
+        +logCommunicationWithLogger(...)
+        +getCommunicationHistory()
+    }
+    
+    class Reporting {
+        +generateCommunicationReportString()
+        +getSummaryReportString()
+    }
+
     Logger <|.. EmailLogger
     Logger <|.. PhoneLogger
     Logger <|.. MeetingLogger
@@ -137,6 +162,12 @@ classDiagram
     Subject <|-- CustomerManagement
     Observer <|.. MainCLI
     Observer <|.. MainGUI
+    
+    TaskManagement *-- Task
+    CommunicationTracking *-- CommunicationLog
+    Reporting ..> CustomerManagement : uses
+    Reporting ..> TaskManagement : uses
+    Reporting ..> CommunicationTracking : uses
 ```
 
 ### Assumptions
