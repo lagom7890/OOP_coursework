@@ -73,7 +73,7 @@ public class MainCLI implements Observer {
         System.out.println("8. Log Communication");
         System.out.println("9. Generate Reports");
         System.out.println("10. Toggle Notifications (Current: " + (sessionManager.isNotificationsEnabled() ? "ON" : "OFF") + ")");
-        System.out.println("11. Exit");
+        System.out.println("0. Exit");
         System.out.print("Enter choice: ");
     }
 
@@ -169,7 +169,12 @@ public class MainCLI implements Observer {
     private void markTaskDone() {
         System.out.print("Enter Task ID: ");
         int tid = Integer.parseInt(scanner.nextLine());
-        taskManagement.markTaskAsCompleted(tid);
+        boolean success = taskManagement.markTaskAsCompleted(tid);
+        if (success) {
+            System.out.println("🎉 Awesome job! Task marked as completed. Keep up the great work!");
+        } else {
+            System.out.println("Task not found with ID: " + tid);
+        }
     }
 
     private void generateReports() {

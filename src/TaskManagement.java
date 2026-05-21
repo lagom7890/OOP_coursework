@@ -58,16 +58,15 @@ public class TaskManagement extends Subject {
                 .collect(Collectors.toList());
     }
 
-    public void markTaskAsCompleted(int taskId) {
+    public boolean markTaskAsCompleted(int taskId) {
         for (Task task : tasks) {
             if (task.getTaskId() == taskId) {
                 task.setCompleted(true);
-                System.out.println("🎉 Awesome job! Task marked as completed: " + task.getDescription());
                 notifyObservers("Task completed (Keep it up!): " + task.getDescription());
-                return;
+                return true;
             }
         }
-        System.out.println("Task not found with ID: " + taskId);
+        return false;
     }
 
     public void checkReminders() {

@@ -32,7 +32,7 @@ public class MainGUI implements Observer {
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                JOptionPane.showMessageDialog(frame, 
+                JOptionPane.showMessageDialog(frame,
                     "Great work today, " + sessionManager.getCurrentUser() + ". Have a wonderful rest of your day!",
                     "Goodbye!", JOptionPane.INFORMATION_MESSAGE);
                 System.exit(0);
@@ -171,8 +171,12 @@ public class MainGUI implements Observer {
     private void markTaskDone() {
         try {
             int tid = Integer.parseInt(JOptionPane.showInputDialog("Enter Task ID:"));
-            taskManagement.markTaskAsCompleted(tid);
-            displayArea.setText("Task marked as completed.");
+            boolean success = taskManagement.markTaskAsCompleted(tid);
+            if (success) {
+                displayArea.setText("🎉 Awesome job! Task marked as completed.\nKeep up the great work!");
+            } else {
+                displayArea.setText("Task not found with ID: " + tid);
+            }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(frame, "Error updating task", "Error", JOptionPane.ERROR_MESSAGE);
         }
